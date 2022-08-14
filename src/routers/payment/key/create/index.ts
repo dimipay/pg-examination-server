@@ -39,7 +39,7 @@ export default async (req: KeyRequest, res: Response) => {
   })
 
   if (existingCard) {
-    throw new HttpError(400, '이미 등록된 카드입니다.')
+    throw new HttpError(400, '이미 등록된 카드입니다.', 'CARD_ALREADY_REGISTERED')
   }
 
   const { data: response } = await (<AxiosPromise<BillKeyRes>>axios({
@@ -70,7 +70,7 @@ export default async (req: KeyRequest, res: Response) => {
     data: {
       billKey: response.BID,
       type: response.CardCl,
-      name: response.CardName,
+      name: req.body.CardName || response.CardName,
       hash: sha256(cardInfo),
       USER: { connect: { id: req.user.id } },
     },

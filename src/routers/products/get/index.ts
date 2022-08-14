@@ -13,5 +13,5 @@ const products = (async () =>
   }))()
 
 export default async (req: Request, res: Response) => {
-  res.json(products)
+  res.json(await products)
 }
