@@ -1,6 +1,7 @@
 # PG 심사용 API Document
 
-## 회원가입
-```plain
-POST /auth/signup
-```
+## base url
+https://dimipay-pg-exam.herokuapp.com/
+
+## docs
+https://dimipay.github.io/pg-examination-server/#/
