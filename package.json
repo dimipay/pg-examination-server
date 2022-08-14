@@ -5,6 +5,7 @@
   "author": "kraccoon-dev <kraccoon@kakao.com>",
   "license": "MIT",
   "scripts": {
+    "start": "ts-node -r tsconfig-paths/register src/server.ts",
     "dev": "nodemon -r tsconfig-paths/register src/server.ts",
     "lint": "eslint src/**/*.ts",
     "db:seed": "npx prisma db seed",
