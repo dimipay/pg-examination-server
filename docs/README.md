@@ -79,13 +79,26 @@ Authorization 헤더에 bearer로 refresh Token을 보냅니다.
 }
 ```
 
+## 사용자 정보 불러오기
+
+> 인증이 필요한 라우터입니다.
+
+### Response
+
+```json
+{
+  "name": string,
+  "email": string,
+}
+```
+
 ## 토큰 오류
 
 - 토큰 없음: 토큰이 Authorization헤더에 bearer로 입력되지 않았을 때 발생합니다.
 
 ```json
 {
-  "code": "TOKEN",
+  "code": "TOKEN_REQUIRED",
   "message": "토큰이 필요합니다."
 }
 ```
@@ -94,7 +107,7 @@ Authorization 헤더에 bearer로 refresh Token을 보냅니다.
 
 ```json
 {
-  "code": "TOKEN",
+  "code": "TOKEN_TYPE_MISMATCH",
   "message": "토큰 타입이 일치하지 않습니다."
 }
 ```
@@ -103,7 +116,7 @@ Authorization 헤더에 bearer로 refresh Token을 보냅니다.
 
 ```json
 {
-  "code": "TOKEN",
+  "code": "TOKEN_EXPIRED",
   "message": "토큰이 유효하지 않습니다."
 }
 ```
@@ -112,7 +125,7 @@ Authorization 헤더에 bearer로 refresh Token을 보냅니다.
 
 ```json
 {
-  "code": "TOKEN",
+  "code": "TOKEN_INVALID",
   "message": "토큰이 만료되었습니다."
 }
 ```
@@ -121,7 +134,7 @@ Authorization 헤더에 bearer로 refresh Token을 보냅니다.
 
 ```json
 {
-  "code": "TOKEN",
+  "code": "TOKEN_FAILED",
   "message": "사용자를 확인하는데 실패했습니다."
 }
 ```

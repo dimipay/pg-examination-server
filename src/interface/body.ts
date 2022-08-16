@@ -8,7 +8,11 @@ export type SignInRequest = RequestBody<{
   password: string
 }>
 
-export type SignUpRequest = SignInRequest
+export type SignUpRequest = RequestBody<{
+  email: string
+  password: string
+  name: string
+}>
 
 export type KeyRequest = RequestBody<{
   IDNo: string

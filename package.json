@@ -10,7 +10,8 @@
     "lint": "eslint src/**/*.ts",
     "db:seed": "npx prisma db seed",
     "db:push": "npx prisma db push && yarn db:pull",
-    "db:pull": "npx prisma db pull && npx prisma generate"
+    "db:pull": "npx prisma db pull && npx prisma generate",
+    "docs:server": "docsify serve docs"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} -r tsconfig-paths/register prisma/seed.ts"
