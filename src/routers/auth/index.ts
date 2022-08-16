@@ -1,6 +1,7 @@
 import signin from './signin'
 import signup from './signup'
 import refresh from './refresh'
+import user from './user'
 
 import Joi from 'joi'
 import checkRouter from 'lib/checkRouter'
@@ -31,6 +32,7 @@ export default checkRouter({
         body: {
           email: Joi.string().email().required(),
           password: Joi.string().required(),
+          name: Joi.string().required(),
         },
       },
     },
@@ -39,6 +41,12 @@ export default checkRouter({
       method: 'get',
       needAuth: false,
       handler: refresh,
+    },
+    {
+      path: '/user',
+      method: 'get',
+      needAuth: true,
+      handler: user,
     }
   ],
 })
