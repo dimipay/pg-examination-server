@@ -15,12 +15,12 @@ export type SignUpRequest = RequestBody<{
 }>
 
 export type KeyRequest = RequestBody<{
-  IDNo: string
-  CardNo: string
-  CardPw: string
-  ExpYear: string
-  ExpMonth: string
-  CardName: string
+  idNo: string
+  cardNo: string
+  cardPw: string
+  expYear: string
+  expMonth: string
+  cardName?: string
 }>
 
 export type PaymentRequest = RequestBody<{

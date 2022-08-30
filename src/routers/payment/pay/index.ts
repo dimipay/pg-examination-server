@@ -1,5 +1,5 @@
 import qs from 'qs'
-import axios from 'axios'
+import axios from 'lib/axios'
 import moment from 'moment'
 import config from 'config'
 import crypto from 'crypto'
@@ -17,51 +17,32 @@ import type { BillkeyApprovalRes } from 'interface/nicepay'
 export default async (req: PaymentRequest, res: Response) => {
   const { productId, cardId } = req.body
 
+  const orderId = random(6)
   const card = await getCard(cardId, req.user.id)
   const product = await getProduct(productId)
 
-  const orderId = random(6)
-  const now = moment().format('YYYYMMDDHHmmss')
-  const TID = config.storeId + '0116' + now.substring(2) + random(2)
-
-  const response = await (<AxiosPromise<BillkeyApprovalRes>>axios({
-    url: 'https://webapi.nicepay.co.kr/webapi/billing/billing_approve.jsp',
+  const { data: response } = await (<AxiosPromise<BillkeyApprovalRes>>axios({
+    url: `v1/subscribe/${card.billKey}/payments`,
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
+    data: {
+      orderId,
+      cardQuota: 0, // 일시불
+      amount: product.price,
+      goodsName: product.name,
+      useShopInterest: false // false만 사용가능
     },
-    data: qs.stringify({
-      TID,
-      EdiDate: now,
-      Moid: orderId,
-      CardQuota: '00',
-      CharSet: 'utf-8',
-      CardInterest: '0',
-      BID: card.billKey,
-      Amt: product.price,
-      MID: config.storeId,
-      GoodsName: 'H2CARE TEST',
-      SignData: sha256(
-        config.storeId +
-          now +
-          orderId +
-          product.price +
-          card.billKey +
-          config.storeKey
-      ),
-    }),
   }))
 
-  if (response.data.ResultCode !== '3001') {
-    throw new HttpError(500, response.data.ResultMsg, response.data.ResultCode)
+  if (response.resultCode !== '0000') {
+    throw new HttpError(500, response.resultMsg, response.resultCode)
   }
 
   const transaction = await prisma.transaction.create({
     data: {
-      TID,
-      id: orderId,
-      price: product.price,
-      productName: product.name,
+      tid: response.tid,
+      id: response.orderId,
+      price: response.amount,
+      productName: response.goodsName,
       USER: { connect: { id: req.user.id } },
       PRODUCT: { connect: { id: productId } },
     },

@@ -23,23 +23,23 @@ export default checkRouter({
       validation: {
         type: 'body',
         body: {
-          CardNo: Joi.string().required(),
-          ExpYear: Joi.string()
+          cardNo: Joi.string().required(),
+          expYear: Joi.string()
             .regex(/^\d{2}$/)
             .required(),
-          ExpMonth: Joi.string()
+          expMonth: Joi.string()
             .regex(/^\d{2}$/)
             .required(),
-          IDNo: Joi.alternatives()
+          idNo: Joi.alternatives()
             .try(
               Joi.string().regex(/^\d{6}$/), // 생년월일
               Joi.string().regex(/^\d{10}$/) // 사업자번호
             )
             .required(),
-          CardPw: Joi.string()
+          cardPw: Joi.string()
             .regex(/^\d{2}$/)
             .required(),
-          CardName: Joi.string(),
+          cardName: Joi.string(),
         },
       },
     },

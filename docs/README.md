@@ -179,12 +179,12 @@ Authorization 헤더에 bearer로 refresh Token을 보냅니다.
 
 | key      | type   | description                                                 |
 | -------- | ------ | ----------------------------------------------------------- |
-| CardNo   | string | 카드번호                                                    |
-| ExpYear  | string | 만료 년도.                                                  |
-| ExpMonth | string | 만료 월.                                                    |
-| IDNo     | string | 생년월일 6자리 또는 사업자번호 10자리                       |
-| CardPw   | string | 카드 비밀번호 앞 두 자리 입니다.                            |
-| CardName | string | 카드이름입니다. 입력하지 않으면 카드사 이름으로 등록됩니다. |
+| cardNo   | string | 카드번호                                                    |
+| expYear  | string | 만료 년도.                                                  |
+| expMonth | string | 만료 월.                                                    |
+| idNo     | string | 생년월일 6자리 또는 사업자번호                              |
+| cardPw   | string | 카드 비밀번호 앞 두 자리 입니다.                            |
+| cardName | string | 카드이름입니다. 입력하지 않으면 카드사 이름으로 등록됩니다. |
 
 ### Response
 
@@ -194,7 +194,6 @@ Authorization 헤더에 bearer로 refresh Token을 보냅니다.
 {
   "id": string,
   "name": string,
-  "type": 0 | 1, // 0: 신용카드, 1: 체크카드
   "createdAt": string,
 }
 ```
@@ -233,7 +232,6 @@ Authorization 헤더에 bearer로 refresh Token을 보냅니다.
 {
   "id": string,
   "name": string,
-  "type": 0 | 1, // 0: 신용카드, 1: 체크카드
   "createdAt": string
 }[]
 ```

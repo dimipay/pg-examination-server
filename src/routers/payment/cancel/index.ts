@@ -33,15 +33,12 @@ export default async (req: CancelRequest, res: Response) => {
   const response = await (<AxiosPromise<BillkeyCancelRes>>axios({
     url: 'https://webapi.nicepay.co.kr/webapi/cancel_process.jsp',
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
     data: qs.stringify({
       EdiDate: now,
       Moid: orderNo,
       CharSet: 'utf-8',
       CancelMsg: '취소',
-      TID: transaction.TID,
+      TID: transaction.tid,
       MID: config.storeId,
       PartialCancelCode: '0',
       CancelAmt: transaction.price,

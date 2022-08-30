@@ -19,4 +19,7 @@ export default {
 
   storeId: check('STORE_ID'),
   storeKey: check('STORE_KEY'),
+
+  clientId: check('CLIENT_ID'),
+  clientSecret: check('CLIENT_SECRET'),
 }

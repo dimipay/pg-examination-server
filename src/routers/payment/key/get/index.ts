@@ -8,7 +8,6 @@ export default async (req: Request, res: Response) => {
     select: {
       id: true,
       name: true,
-      type: true,
       createdAt: true,
     },
   })

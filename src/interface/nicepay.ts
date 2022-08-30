@@ -1,39 +1,37 @@
 type MapString<T extends string> = Record<T, string>
 
 export type BillKeyRes = MapString<
-  | 'ResultCode'
-  | 'ResultMsg'
-  | 'TID'
-  | 'BID'
-  | 'AuthDate'
-  | 'CardCode'
-  | 'CardName'
-  | 'CardCl'
-  | 'AcquCardCode'
-  | 'AcquCardName'
+  | 'resultCode'
+  | 'resultMsg'
+  | 'tid'
+  | 'orderId'
+  | 'bid'
+  | 'authDate'
+  | 'cardCode'
+  | 'cardName'
 >
 
-export type BillkeyApprovalRes = MapString<
-  | 'ResultCode'
-  | 'ResultMsg'
-  | 'TID'
-  | 'Moid'
-  | 'Amt'
-  | 'AuthCode'
-  | 'AuthDate'
-  | 'AcquCardCode'
-  | 'AcquCardName'
-  | 'CardNo'
-  | 'CardCode'
-  | 'CardName'
-  | 'CardQuota'
-  | 'CardCl'
-  | 'CardInterest'
-  | 'CardCl'
-  | 'CardInterest'
-  | 'CcPartCl'
-  | 'MallReserved'
->
+export type BillkeyApprovalRes = {
+  status:
+    | 'paid'
+    | 'ready'
+    | 'failed'
+    | 'cancelled'
+    | 'partialCancelled'
+    | 'expired'
+} & { amount: number } & MapString<
+    | 'resultCode'
+    | 'resultMsg'
+    | 'tid'
+    | 'orderId'
+    | 'ediDate'
+    | 'paidAt'
+    | 'failedAt'
+    | 'cancelledAt'
+    | 'payMethod'
+    | 'balanceAmt'
+    | 'goodsName'
+  >
 
 export type BillkeyCancelRes = MapString<
   | 'ResultCode'
