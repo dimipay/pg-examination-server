@@ -2,6 +2,7 @@ import key from './key'
 import pay from './pay'
 import cancel from './cancel'
 import history from './history'
+import serverAuth from './serverAuth'
 
 import Joi from 'joi'
 import checkRouter from 'lib/checkRouter'
@@ -74,5 +75,11 @@ export default checkRouter({
       needAuth: true,
       handler: history,
     },
+    {
+      path: '/serverAuth',
+      method: 'post',
+      needAuth: false,
+      handler: serverAuth,
+    }
   ],
 })

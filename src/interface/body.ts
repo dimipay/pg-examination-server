@@ -31,3 +31,8 @@ export type PaymentRequest = RequestBody<{
 export type CancelRequest = RequestBody<{
   transactionId: string
 }>
+
+export type ServerAuthRequest = RequestBody<{
+  tid: string
+  amount: number
+}>

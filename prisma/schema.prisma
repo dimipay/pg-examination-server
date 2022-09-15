@@ -36,7 +36,7 @@ model Card {
 
 model Products {
   id          String        @id @default(cuid())
-  name        String
+  name        String        @unique
   price       Int
   detail      String?
   createdAt   DateTime      @default(now())
@@ -45,17 +45,17 @@ model Products {
 }
 
 model Transaction {
-  id          String   @unique
+  id          String    @unique
   userId      String
-  productId   String
+  productId   String?
   productName String
   price       Int
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  canceled    Boolean  @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  canceled    Boolean   @default(false)
   tid         String
-  PRODUCT     Products @relation(fields: [productId], references: [id])
-  USER        User     @relation(fields: [userId], references: [id])
+  PRODUCT     Products? @relation(fields: [productId], references: [id])
+  USER        User      @relation(fields: [userId], references: [id])
 
   @@unique([id, userId])
 }

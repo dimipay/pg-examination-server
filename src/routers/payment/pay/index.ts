@@ -8,6 +8,7 @@ import random from 'lib/random'
 import { sha256 } from 'lib/token'
 import { HttpError } from 'lib/error'
 import { getCard, getProduct } from './get'
+import createTransaction from 'lib/createTransaction'
 
 import type { Response } from 'express'
 import type { AxiosPromise } from 'axios'
@@ -29,7 +30,7 @@ export default async (req: PaymentRequest, res: Response) => {
       cardQuota: 0, // 일시불
       amount: product.price,
       goodsName: product.name,
-      useShopInterest: false // false만 사용가능
+      useShopInterest: false, // false만 사용가능
     },
   }))
 
@@ -37,21 +38,13 @@ export default async (req: PaymentRequest, res: Response) => {
     throw new HttpError(500, response.resultMsg, response.resultCode)
   }
 
-  const transaction = await prisma.transaction.create({
-    data: {
-      tid: response.tid,
-      id: response.orderId,
-      price: response.amount,
-      productName: response.goodsName,
-      USER: { connect: { id: req.user.id } },
-      PRODUCT: { connect: { id: productId } },
-    },
-    select: {
-      id: true,
-      price: true,
-      createdAt: true,
-      productName: true,
-    },
+  const transaction = await createTransaction({
+    productId,
+    tid: response.tid,
+    userId: req.user.id,
+    amount: response.amount,
+    orderId: response.orderId,
+    goodsName: response.goodsName,
   })
 
   res.json(transaction)
