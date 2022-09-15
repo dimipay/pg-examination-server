@@ -345,3 +345,24 @@ Authorization 헤더에 bearer로 refresh Token을 보냅니다.
   "message": string
 }
 ```
+
+## 결제창 서버 인증
+
+> 결제창 서버에서 인증을 위해 사용합니다.
+
+```plain
+[POST] /payment/serverAuth
+```
+
+### Response
+
+- OK
+
+```json
+{
+  "id": string, // 결제 id입니다.
+  "price": number,
+  "createdAt": string,
+  "productName": string
+}
+```
