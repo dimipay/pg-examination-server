@@ -92,6 +92,10 @@ Authorization 헤더에 bearer로 refresh Token을 보냅니다.
 
 ## 사용자 정보 불러오기
 
+```plain
+[GET] auth/user
+```
+
 > 인증이 필요한 라우터입니다.
 
 ### Response
@@ -100,6 +104,7 @@ Authorization 헤더에 bearer로 refresh Token을 보냅니다.
 {
   "name": string,
   "email": string,
+  "id": string
 }
 ```
 
@@ -349,6 +354,12 @@ Authorization 헤더에 bearer로 refresh Token을 보냅니다.
 ## 결제창 서버 인증
 
 > 결제창 서버에서 인증을 위해 사용합니다.
+
+나이스페이 요청 파라미터 중 `mallReserved`값에 id를 넣은 JSON을 추가해야합니다.
+
+```plain
+'{"id":"cl6w0c3l20002no9zhxx22iqj"}'
+```
 
 ```plain
 [POST] /payment/serverAuth

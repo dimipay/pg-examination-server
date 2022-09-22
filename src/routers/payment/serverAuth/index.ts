@@ -16,12 +16,17 @@ export default async (req: ServerAuthRequest, res: Response) => {
     throw new HttpError(500, response.resultMsg, response.resultCode)
   }
 
+  const userIdentity = JSON.parse(response.mallReserved) as {id: string}
+  if(typeof userIdentity.id === 'undefined') {
+    throw new HttpError(500, '잘못된 요청입니다.','ERR_INVALID_REQUEST')
+  }
+
   const transaction = await createTransaction({
     tid: response.tid,
     orderId: response.orderId,
     amount: response.amount,
     goodsName: response.goodsName,
-    userId: req.user.id,
+    userId: userIdentity.id,
   })
 
   res.json(transaction)
