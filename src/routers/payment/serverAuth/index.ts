@@ -21,7 +21,7 @@ export default async (req: ServerAuthRequest, res: Response) => {
     throw new HttpError(500, '잘못된 요청입니다.','ERR_INVALID_REQUEST')
   }
 
-  const transaction = await createTransaction({
+  await createTransaction({
     tid: response.tid,
     orderId: response.orderId,
     amount: response.amount,
@@ -29,5 +29,5 @@ export default async (req: ServerAuthRequest, res: Response) => {
     userId: userIdentity.id,
   })
 
-  res.json(transaction)
+  res.redirect('https://demo.dimipay.io/user/profile')
 }
